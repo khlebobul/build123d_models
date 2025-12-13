@@ -15,7 +15,7 @@ rod_length = 300        # Длина накладки
 wall_thickness = 3      # Толщина стенки накладки
 num_slots = 10          # Количество пазов для вешалок
 slot_width = 5          # Ширина паза
-slot_depth = 50         # Глубина паза
+slot_depth = 46         # Глубина паза
 slot_angle = 45         # Угол наклона паза (градусы)
 gap_width = 8           # Ширина разреза снизу для надевания
 
@@ -29,27 +29,30 @@ with BuildPart() as adapter:
         Circle(rod_diameter / 2, mode=Mode.SUBTRACT)  # Внутренний круг под штангу
     extrude(amount=rod_length)
     
+    # Вычисляем высоту граней восьмиугольника
+    top_offset = outer_radius * math.cos(math.pi / 8)  # Высота верхней грани
+    bottom_offset = -outer_radius * math.cos(math.pi / 8)  # Высота нижней грани
+    
     # Создаем продольный разрез ВНИЗУ для надевания на штангу
-    with BuildSketch(Plane.XZ.offset(-rod_diameter / 2 - wall_thickness)) as gap_sketch:
+    # Начинаем ниже и прорезаем глубже
+    with BuildSketch(Plane.XZ.offset(bottom_offset - 5)) as gap_sketch:
         with Locations((0, rod_length / 2)):
             Rectangle(gap_width, rod_length)
-    extrude(amount=outer_radius * 2, mode=Mode.SUBTRACT)  # Прорезаем насквозь
+    extrude(amount=outer_radius + 10, mode=Mode.SUBTRACT)  # Прорезаем намного глубже вверх
     
     # Вычисляем расстояние между пазами
     spacing = rod_length / (num_slots + 1)
     
-    # Создаем наклонные пазы для вешалок НАВЕРХУ
-    # Пазы размещаем на верхней грани восьмиугольника
-    top_offset = outer_radius * math.cos(math.pi / 8)  # Высота верхней грани
-    
+    # Создаем наклонные пазы для вешалок НАВЕРХУ (противоположная сторона)
     for i in range(num_slots):
         z_pos = spacing * (i + 1)
         
-        # Создаем паз сверху - прорезаем полностью насквозь
-        with BuildSketch(Plane.XZ.offset(top_offset)) as slot_sketch:
+        # Создаем паз сверху - прорезаем глубоко
+        with BuildSketch(Plane.XZ.offset(top_offset + 5)) as slot_sketch:  # Начинаем выше
             with Locations((0, z_pos)):
                 Rectangle(slot_depth, slot_width, rotation=slot_angle)
-        extrude(amount=-outer_radius * 2, mode=Mode.SUBTRACT)  # Прорезаем насквозь
+        # Прорезаем на большую глубину
+        extrude(amount=-(outer_radius + 10), mode=Mode.SUBTRACT)
     
     # Добавляем скругления для прочности (опционально)
     try:
