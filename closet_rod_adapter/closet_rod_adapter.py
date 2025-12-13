@@ -1,69 +1,70 @@
 """
 name: closet_rod_adapter.py
 desc:
-    Накладка на штангу для узких шкафов с наклонными пазами для вешалок.
-    Вешалки размещаются под углом, чтобы поместиться в узком шкафу.
-    Восьмиугольная форма для большей высоты пазов.
+    Adapter for closet rod for narrow closets with angled slots for hangers.
+    Hangers are placed at an angle to fit in narrow closet.
+    Octagonal shape for greater slot height.
 """
 from build123d import *
 from ocp_vscode import show_object
 import math
 
-# Параметры накладки
-rod_diameter = 25       # Диаметр штанги
-rod_length = 300        # Длина накладки
-wall_thickness = 3      # Толщина стенки накладки
-num_slots = 10          # Количество пазов для вешалок
-slot_width = 5          # Ширина паза
-slot_depth = 46         # Глубина паза
-slot_angle = 45         # Угол наклона паза (градусы)
-gap_width = 8           # Ширина разреза снизу для надевания
+# Adapter parameters
+rod_diameter = 25       # Rod diameter
+rod_length = 300        # Adapter length
+wall_thickness = 3      # Adapter wall thickness
+num_slots = 10          # Number of slots for hangers
+slot_width = 5          # Slot width
+slot_depth = 45         # Slot depth
+slot_angle = 45         # Slot angle (degrees)
+gap_width = 8           # Width of bottom cut for installation
 
-# Параметры восьмиугольника
-outer_radius = rod_diameter / 2 + wall_thickness + 5  # Увеличенный радиус для высоты
+# Octagon parameters
+outer_radius = rod_diameter / 2 + wall_thickness + 5  # Increased radius for height
 
 with BuildPart() as adapter:
-    # Создаем восьмиугольную трубу (накладка на штангу)
+    # Create octagonal tube (rod adapter)
     with BuildSketch() as profile:
-        RegularPolygon(outer_radius, 8)  # Внешний восьмиугольник
-        Circle(rod_diameter / 2, mode=Mode.SUBTRACT)  # Внутренний круг под штангу
+        RegularPolygon(outer_radius, 8)  # Outer octagon
+        Circle(rod_diameter / 2, mode=Mode.SUBTRACT)  # Inner circle for rod
     extrude(amount=rod_length)
     
-    # Вычисляем высоту граней восьмиугольника
-    top_offset = outer_radius * math.cos(math.pi / 8)  # Высота верхней грани
-    bottom_offset = -outer_radius * math.cos(math.pi / 8)  # Высота нижней грани
+    # Calculate octagon face heights
+    top_offset = outer_radius * math.cos(math.pi / 8)  # Top face height
+    bottom_offset = -outer_radius * math.cos(math.pi / 8)  # Bottom face height
     
-    # Создаем продольный разрез ВНИЗУ для надевания на штангу
-    # Начинаем ниже и прорезаем глубже
+    # Create longitudinal cut at BOTTOM for installing on rod
+    # Start lower and cut deeper
     with BuildSketch(Plane.XZ.offset(bottom_offset - 5)) as gap_sketch:
         with Locations((0, rod_length / 2)):
             Rectangle(gap_width, rod_length)
-    extrude(amount=outer_radius + 10, mode=Mode.SUBTRACT)  # Прорезаем намного глубже вверх
+    extrude(amount=outer_radius + 10, mode=Mode.SUBTRACT)  # Cut much deeper upward
     
-    # Вычисляем расстояние между пазами
+    # Calculate spacing between slots
     spacing = rod_length / (num_slots + 1)
     
-    # Создаем наклонные пазы для вешалок НАВЕРХУ (противоположная сторона)
+    # Create angled slots for hangers at TOP (opposite side)
     for i in range(num_slots):
         z_pos = spacing * (i + 1)
         
-        # Создаем паз сверху - прорезаем глубоко
-        with BuildSketch(Plane.XZ.offset(top_offset + 5)) as slot_sketch:  # Начинаем выше
+        # Create slot from top - cut deep
+        with BuildSketch(Plane.XZ.offset(top_offset + 5)) as slot_sketch:  # Start higher
             with Locations((0, z_pos)):
                 Rectangle(slot_depth, slot_width, rotation=slot_angle)
-        # Прорезаем на большую глубину
+        
+        # Cut to greater depth
         extrude(amount=-(outer_radius + 10), mode=Mode.SUBTRACT)
     
-    # Добавляем скругления для прочности (опционально)
+    # Add fillets for strength (optional)
     try:
         edges_to_fillet = adapter.edges().filter_by(GeomType.CIRCLE)
         fillet(edges_to_fillet, radius=0.5)
     except:
         pass
 
-# Отображаем результат
+# Display result
 show_object(adapter.part, name="closet_rod_adapter")
 
-# Экспортируем в STL
-adapter.part.export_stl("closet_rod_adapter.stl")
-print("Модель экспортирована в closet_rod_adapter.stl")
+# Export to STL
+adapter.part.export_stl("closet_rod_adapter/closet_rod_adapter.stl")
+print("Model exported to closet_rod_adapter.stl")
