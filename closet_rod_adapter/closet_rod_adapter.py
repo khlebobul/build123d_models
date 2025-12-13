@@ -3,6 +3,7 @@ name: closet_rod_adapter.py
 desc:
     Накладка на штангу для узких шкафов с наклонными пазами для вешалок.
     Вешалки размещаются под углом, чтобы поместиться в узком шкафу.
+    Восьмиугольная форма для большей высоты пазов.
 """
 from build123d import *
 from ocp_vscode import show_object
@@ -14,36 +15,41 @@ rod_length = 300        # Длина накладки
 wall_thickness = 3      # Толщина стенки накладки
 num_slots = 10          # Количество пазов для вешалок
 slot_width = 5          # Ширина паза
-slot_depth = 50         # Глубина паза (увеличена с 30 до 50)
+slot_depth = 50         # Глубина паза
 slot_angle = 45         # Угол наклона паза (градусы)
-gap_width = 15          # Ширина разреза снизу для надевания
+gap_width = 8           # Ширина разреза снизу для надевания
+
+# Параметры восьмиугольника
+outer_radius = rod_diameter / 2 + wall_thickness + 5  # Увеличенный радиус для высоты
 
 with BuildPart() as adapter:
-    # Создаем основную трубу (накладка на штангу)
+    # Создаем восьмиугольную трубу (накладка на штангу)
     with BuildSketch() as profile:
-        Circle(rod_diameter / 2 + wall_thickness)
-        Circle(rod_diameter / 2, mode=Mode.SUBTRACT)
+        RegularPolygon(outer_radius, 8)  # Внешний восьмиугольник
+        Circle(rod_diameter / 2, mode=Mode.SUBTRACT)  # Внутренний круг под штангу
     extrude(amount=rod_length)
     
     # Создаем продольный разрез ВНИЗУ для надевания на штангу
-    # Используем Box для более точного контроля
     with BuildSketch(Plane.XZ.offset(-rod_diameter / 2 - wall_thickness)) as gap_sketch:
         with Locations((0, rod_length / 2)):
             Rectangle(gap_width, rod_length)
-    extrude(amount=wall_thickness * 2, mode=Mode.SUBTRACT)
+    extrude(amount=outer_radius * 2, mode=Mode.SUBTRACT)  # Прорезаем насквозь
     
     # Вычисляем расстояние между пазами
     spacing = rod_length / (num_slots + 1)
     
     # Создаем наклонные пазы для вешалок НАВЕРХУ
+    # Пазы размещаем на верхней грани восьмиугольника
+    top_offset = outer_radius * math.cos(math.pi / 8)  # Высота верхней грани
+    
     for i in range(num_slots):
         z_pos = spacing * (i + 1)
         
-        # Создаем паз сверху (положительное смещение по Y)
-        with BuildSketch(Plane.XZ.offset(rod_diameter / 2 + wall_thickness)) as slot_sketch:
+        # Создаем паз сверху - прорезаем полностью насквозь
+        with BuildSketch(Plane.XZ.offset(top_offset)) as slot_sketch:
             with Locations((0, z_pos)):
                 Rectangle(slot_depth, slot_width, rotation=slot_angle)
-        extrude(amount=-wall_thickness * 2, mode=Mode.SUBTRACT)
+        extrude(amount=-outer_radius * 2, mode=Mode.SUBTRACT)  # Прорезаем насквозь
     
     # Добавляем скругления для прочности (опционально)
     try:
