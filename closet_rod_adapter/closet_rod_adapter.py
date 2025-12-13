@@ -14,38 +14,35 @@ rod_length = 300        # Длина накладки
 wall_thickness = 3      # Толщина стенки накладки
 num_slots = 10          # Количество пазов для вешалок
 slot_width = 5          # Ширина паза
-slot_depth = 30         # Глубина паза (увеличена)
+slot_depth = 50         # Глубина паза (увеличена с 30 до 50)
 slot_angle = 45         # Угол наклона паза (градусы)
-gap_width = 8           # Ширина разреза снизу для надевания
+gap_width = 15          # Ширина разреза снизу для надевания
 
 with BuildPart() as adapter:
     # Создаем основную трубу (накладка на штангу)
     with BuildSketch() as profile:
         Circle(rod_diameter / 2 + wall_thickness)
         Circle(rod_diameter / 2, mode=Mode.SUBTRACT)
-    
     extrude(amount=rod_length)
     
-    # Создаем продольный разрез снизу для надевания на штангу
-    with BuildSketch(Plane.XY) as gap_sketch:
-        with Locations((0, 0)):
-            Rectangle(gap_width, rod_length + 10)
-    
-    extrude(amount=rod_diameter, mode=Mode.SUBTRACT, dir=(0, -1, 0))
+    # Создаем продольный разрез ВНИЗУ для надевания на штангу
+    # Используем Box для более точного контроля
+    with BuildSketch(Plane.XZ.offset(-rod_diameter / 2 - wall_thickness)) as gap_sketch:
+        with Locations((0, rod_length / 2)):
+            Rectangle(gap_width, rod_length)
+    extrude(amount=wall_thickness * 2, mode=Mode.SUBTRACT)
     
     # Вычисляем расстояние между пазами
     spacing = rod_length / (num_slots + 1)
     
-    # Создаем наклонные пазы для вешалок
+    # Создаем наклонные пазы для вешалок НАВЕРХУ
     for i in range(num_slots):
         z_pos = spacing * (i + 1)
         
-        # Создаем паз как вырез
+        # Создаем паз сверху (положительное смещение по Y)
         with BuildSketch(Plane.XZ.offset(rod_diameter / 2 + wall_thickness)) as slot_sketch:
             with Locations((0, z_pos)):
-                with PolarLocations(0, 1):
-                    Rectangle(slot_depth, slot_width, rotation=slot_angle)
-        
+                Rectangle(slot_depth, slot_width, rotation=slot_angle)
         extrude(amount=-wall_thickness * 2, mode=Mode.SUBTRACT)
     
     # Добавляем скругления для прочности (опционально)
