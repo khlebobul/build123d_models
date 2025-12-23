@@ -11,13 +11,16 @@ import math
 
 # Adapter parameters
 rod_diameter = 25       # Rod diameter
-rod_length = 300        # Adapter length
+rod_length = 40        # Adapter length
 wall_thickness = 3      # Adapter wall thickness
-num_slots = 10          # Number of slots for hangers
+slot_spacing = 30       # Distance between slot centers (adjust as needed)
 slot_width = 5          # Slot width
 slot_depth = 45         # Slot depth
 slot_angle = 45         # Slot angle (degrees)
-gap_width = 8           # Width of bottom cut for installation
+gap_width = 15          # Width of bottom cut for installation
+
+# Calculate number of slots based on length and spacing
+num_slots = max(1, int((rod_length - slot_spacing) / slot_spacing))
 
 # Octagon parameters
 outer_radius = rod_diameter / 2 + wall_thickness + 5  # Increased radius for height
@@ -67,4 +70,5 @@ show_object(adapter.part, name="closet_rod_adapter")
 
 # Export to STL
 adapter.part.export_stl("closet_rod_adapter/closet_rod_adapter.stl")
-print("Model exported to closet_rod_adapter.stl")
+print(f"Model exported to closet_rod_adapter.stl")
+print(f"Rod length: {rod_length}mm, Number of slots: {num_slots}, Spacing: {spacing:.1f}mm")
