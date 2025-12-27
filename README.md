@@ -53,4 +53,29 @@ You can modify the following parameters in `clamp.py` to customize the ring clam
 - [clamp.py](ring_clamp/clamp.py) - Source code
 - [ring_clamp.stl](ring_clamp/ring_clamp.stl) - 3D model file
 - [Model on Makerworld]() // TODO
+- [Model on Printable]() // TODO
 
+#### Closet Rod Adapter
+
+![Closet Rod Adapter](closet_rod_adapter/closet_rod_adapter.png)
+
+Adapter for closet rod for narrow closets with angled slots for hangers. Hangers are placed at an angle to fit in narrow closet. Octagonal shape for greater slot height.
+
+**Customizable Parameters:**
+
+You can modify the following parameters in `closet_rod_adapter.py` to customize the adapter:
+
+- `rod_diameter` (default: 25) - Rod diameter in mm
+- `rod_length` (default: 120) - Adapter length in mm
+- `wall_thickness` (default: 3) - Adapter wall thickness in mm
+- `slot_spacing` (default: 30) - Distance between slot centers in mm
+- `slot_width` (default: 5) - Slot width in mm
+- `slot_depth` (default: 45) - Slot depth in mm
+- `slot_angle` (default: 20) - Slot angle in degrees
+- `gap_width` (default: 15) - Width of bottom cut for installation in mm
+
+**Files:**
+- [closet_rod_adapter.py](closet_rod_adapter/closet_rod_adapter.py) - Source code
+- [closet_rod_adapter.stl](closet_rod_adapter/closet_rod_adapter.stl) - 3D model file
+- [Model on Makerworld]() // TODO
+- [Model on Printable]() // TODO
