@@ -11,12 +11,12 @@ import math
 
 # Adapter parameters
 rod_diameter = 25       # Rod diameter
-rod_length = 40        # Adapter length
+rod_length = 120        # Adapter length
 wall_thickness = 3      # Adapter wall thickness
 slot_spacing = 30       # Distance between slot centers (adjust as needed)
 slot_width = 5          # Slot width
 slot_depth = 45         # Slot depth
-slot_angle = 45         # Slot angle (degrees)
+slot_angle = 20         # Slot angle (degrees)
 gap_width = 15          # Width of bottom cut for installation
 
 # Calculate number of slots based on length and spacing
