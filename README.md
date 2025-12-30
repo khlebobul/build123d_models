@@ -6,6 +6,11 @@ A collection of 3D models created using [build123d](https://github.com/build123d
 
 - [build123d](https://github.com/build123d/build123d)
 
+### Models
+
+- [Ring Clamp](#ring-clamp)
+- [Closet Rod Adapter](#closet-rod-adapter)
+
 ### Requirements
 
 To use build123d, you need to install the following dependencies:
@@ -33,7 +38,7 @@ from build123d import *
 
 #### Ring Clamp
 
-![Ring Clamp](ring_clamp/ring_clamp.png)
+![Ring Clamp](ring_clamp/ring_clamp.png){width=50%}
 
 E27 ring clamp created for [The Swirl Lamp](https://makerworld.com/en/models/738820-the-swirl-lamp#profileId-671097) model on Makerworld.
 
@@ -52,12 +57,10 @@ You can modify the following parameters in `clamp.py` to customize the ring clam
 **Files:**
 - [clamp.py](ring_clamp/clamp.py) - Source code
 - [ring_clamp.stl](ring_clamp/ring_clamp.stl) - 3D model file
-- [Model on Makerworld]() // TODO
-- [Model on Printable]() // TODO
 
 #### Closet Rod Adapter
 
-![Closet Rod Adapter](closet_rod_adapter/closet_rod_adapter.png)
+![Closet Rod Adapter](closet_rod_adapter/closet_rod_adapter.png){width=50%}
 
 Adapter for closet rod for narrow closets with angled slots for hangers. Hangers are placed at an angle to fit in narrow closet. Octagonal shape for greater slot height.
 
@@ -77,5 +80,9 @@ You can modify the following parameters in `closet_rod_adapter.py` to customize 
 **Files:**
 - [closet_rod_adapter.py](closet_rod_adapter/closet_rod_adapter.py) - Source code
 - [closet_rod_adapter.stl](closet_rod_adapter/closet_rod_adapter.stl) - 3D model file
-- [Model on Makerworld]() // TODO
-- [Model on Printable]() // TODO
+- [Model on Makerworld](https://makerworld.com/en/models/2172973-closet-rod-adapter-customisable-with-build123d#profileId-2357070)
+- [Model on Printables](https://www.printables.com/model/1533332-closet-rod-adapter-customisable-with-build123d)
+
+### License
+
+// TODO
