@@ -85,4 +85,4 @@ You can modify the following parameters in `closet_rod_adapter.py` to customize 
 
 ### License
 
-// TODO
+[MIT](https://github.com/khlebobul/build123d_models/blob/main/LICENSE)
