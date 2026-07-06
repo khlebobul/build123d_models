@@ -10,6 +10,7 @@ A collection of 3D models created using [build123d](https://github.com/build123d
 
 - [Ring Clamp](#ring-clamp)
 - [Closet Rod Adapter](#closet-rod-adapter)
+- [Mug Dust Cover](#mug-dust-cover)
 
 ### Requirements
 
@@ -38,7 +39,7 @@ from build123d import *
 
 #### Ring Clamp
 
-![Ring Clamp](ring_clamp/ring_clamp.png){width=50%}
+<img src="ring_clamp/ring_clamp.png" alt="Ring Clamp" width="50%">
 
 E27 ring clamp created for [The Swirl Lamp](https://makerworld.com/en/models/738820-the-swirl-lamp#profileId-671097) model on Makerworld.
 
@@ -60,7 +61,7 @@ You can modify the following parameters in `clamp.py` to customize the ring clam
 
 #### Closet Rod Adapter
 
-![Closet Rod Adapter](closet_rod_adapter/closet_rod_adapter.png){width=50%}
+<img src="closet_rod_adapter/closet_rod_adapter.png" alt="Closet Rod Adapter" width="50%">
 
 Adapter for closet rod for narrow closets with angled slots for hangers. Hangers are placed at an angle to fit in narrow closet. Octagonal shape for greater slot height.
 
@@ -82,6 +83,26 @@ You can modify the following parameters in `closet_rod_adapter.py` to customize 
 - [closet_rod_adapter.stl](closet_rod_adapter/closet_rod_adapter.stl) - 3D model file
 - [Model on Makerworld](https://makerworld.com/en/models/2172973-closet-rod-adapter-customisable-with-build123d#profileId-2357070)
 - [Model on Printables](https://www.printables.com/model/1533332-closet-rod-adapter-customisable-with-build123d)
+
+#### Mug Dust Cover
+
+<img src="mug_dust_cover/mug_dust_cover.png" alt="Mug Dust Cover" width="50%">
+
+Dust cover for a mug. Bottom channels let moisture escape sideways while
+keeping the top closed against falling dust.
+
+**Customizable Parameters:**
+
+- `mug_outer_diameter` - Mug outside diameter
+- `overhang` - Cover overhang beyond the mug
+- `top_thickness` - Cover thickness
+- `vent_count` - Number of ventilation channels
+- `vent_width` - Width of each ventilation channel
+- `vent_height` - Height of each ventilation channel
+
+**Files:**
+- [mug_dust_cover.py](mug_dust_cover/mug_dust_cover.py) - Source code
+- [mug_dust_cover.stl](mug_dust_cover/mug_dust_cover.stl) - 3D model file
 
 ### License
 
