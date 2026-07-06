@@ -103,6 +103,8 @@ keeping the top closed against falling dust.
 **Files:**
 - [mug_dust_cover.py](mug_dust_cover/mug_dust_cover.py) - Source code
 - [mug_dust_cover.stl](mug_dust_cover/mug_dust_cover.stl) - 3D model file
+- [Model on Makerworld](https://makerworld.com/en/models/3019858-mug-dust-cover#profileId-3392740)
+- [Model on Printables](https://www.printables.com/model/1774129-mug-dust-cover)
 
 ### License
 
