@@ -62,7 +62,9 @@ You can modify the following parameters in `clamp.py` to customize the ring clam
 
 #### Closet Rod Adapter
 
-<img src="closet_rod_adapter/closet_rod_adapter.png" alt="Closet Rod Adapter" width="50%">
+| 3D Model | Real |
+|:---:|:---:|
+| <img src="closet_rod_adapter/closet_rod_adapter.png" alt="Closet Rod Adapter" width="100%"> | <img src="closet_rod_adapter/closet_rod_adapter_real.png" alt="Closet Rod Adapter real" width="100%"> |
 
 Adapter for closet rod for narrow closets with angled slots for hangers. Hangers are placed at an angle to fit in narrow closet. Octagonal shape for greater slot height.
 
