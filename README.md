@@ -11,6 +11,7 @@ A collection of 3D models created using [build123d](https://github.com/build123d
 - [Ring Clamp](#ring-clamp)
 - [Closet Rod Adapter](#closet-rod-adapter)
 - [Mug Dust Cover](#mug-dust-cover)
+- [Hockey Player Holder](#hockey-player-holder)
 
 ### Requirements
 
@@ -86,7 +87,11 @@ You can modify the following parameters in `closet_rod_adapter.py` to customize 
 
 #### Mug Dust Cover
 
-<img src="mug_dust_cover/mug_dust_cover.png" alt="Mug Dust Cover" width="50%">
+<!-- TODO add cup image -->
+
+| 3D Model | Real |
+|:---:|:---:|
+| <img src="mug_dust_cover/mug_dust_cover.png" alt="Mug Dust Cover" width="100%"> | <img src="mug_dust_cover/mug_dust_cover_real.jpg" alt="Mug Dust Cover real" width="100%"> |
 
 Dust cover for a mug. Bottom channels let moisture escape sideways while
 keeping the top closed against falling dust.
@@ -105,6 +110,28 @@ keeping the top closed against falling dust.
 - [mug_dust_cover.stl](mug_dust_cover/mug_dust_cover.stl) - 3D model file
 - [Model on Makerworld](https://makerworld.com/en/models/3019858-mug-dust-cover#profileId-3392740)
 - [Model on Printables](https://www.printables.com/model/1774129-mug-dust-cover)
+
+#### Hockey Player Holder
+
+| 3D Model | Real |
+|:---:|:---:|
+| <img src="hockey_player_holder/hockey_player_holder.png" alt="Hockey Player Holder" width="100%"> | <img src="hockey_player_holder/hockey_player_holder_real.jpg" alt="Hockey Player Holder real" width="100%"> |
+
+Holder for tabletop hockey game player figures. Tubular body with a wider collar and slits at the end for inserting player pieces.
+
+**Customizable Parameters:**
+
+- `tube_length` (default: 35) - Total tube length in mm
+- `tube_dia` (default: 3.9) - Tube diameter in mm
+- `collar_pos` (default: 7) - Distance from short end to collar in mm
+- `collar_length` (default: 1) - Collar thickness in mm
+- `collar_dia` (default: 6) - Collar outer diameter in mm
+- `slit_depth` (default: 1) - How deep the notch cuts into the tube in mm
+- `slit_height` (default: 6) - Length of slit along the tube axis in mm
+
+**Files:**
+- [hockey_player_holder.py](hockey_player_holder/hockey_player_holder.py) - Source code
+- [hockey_player_holder.stl](hockey_player_holder/hockey_player_holder.stl) - 3D model file
 
 ### License
 
