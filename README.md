@@ -87,11 +87,9 @@ You can modify the following parameters in `closet_rod_adapter.py` to customize 
 
 #### Mug Dust Cover
 
-<!-- TODO add cup image -->
-
 | 3D Model | Real |
 |:---:|:---:|
-| <img src="mug_dust_cover/mug_dust_cover.png" alt="Mug Dust Cover" width="100%"> | <img src="mug_dust_cover/mug_dust_cover_real.jpg" alt="Mug Dust Cover real" width="100%"> |
+| <img src="mug_dust_cover/mug_dust_cover.png" alt="Mug Dust Cover" width="100%"> | <img src="mug_dust_cover/mug_dust_cover_real.png" alt="Mug Dust Cover real" width="100%"> |
 
 Dust cover for a mug. Bottom channels let moisture escape sideways while
 keeping the top closed against falling dust.
@@ -113,7 +111,7 @@ keeping the top closed against falling dust.
 
 #### Hockey Player Holder
 
-| 3D Model | Real |
+| 3D Model | Real // TODO |
 |:---:|:---:|
 | <img src="hockey_player_holder/hockey_player_holder.png" alt="Hockey Player Holder" width="100%"> | <img src="hockey_player_holder/hockey_player_holder_real.jpg" alt="Hockey Player Holder real" width="100%"> |
 
@@ -132,6 +130,8 @@ Holder for tabletop hockey game player figures. Tubular body with a wider collar
 **Files:**
 - [hockey_player_holder.py](hockey_player_holder/hockey_player_holder.py) - Source code
 - [hockey_player_holder.stl](hockey_player_holder/hockey_player_holder.stl) - 3D model file
+- [Model on Makerworld]() // TODO
+- [Model on Printables]() // TODO
 
 ### License
 
