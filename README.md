@@ -12,6 +12,7 @@ A collection of 3D models created using [build123d](https://github.com/build123d
 - [Closet Rod Adapter](#closet-rod-adapter)
 - [Mug Dust Cover](#mug-dust-cover)
 - [Hockey Player Holder](#hockey-player-holder)
+- [Pomodoro Timer Enclosure](#pomodoro-timer-enclosure)
 
 ### Requirements
 
@@ -134,6 +135,49 @@ Holder for tabletop hockey game player figures. Tubular body with a wider collar
 - [hockey_player_holder.stl](hockey_player_holder/hockey_player_holder.stl) - 3D model file
 - [Model on Makerworld](https://makerworld.com/en/models/3094867-hockey-player-holder#profileId-3487696)
 - [Model on Printables](https://www.printables.com/model/1790789-hockey-player-holder)
+
+#### Pomodoro Timer Enclosure
+
+Flip-to-start Pomodoro enclosure for the Waveshare ESP32-S3 Touch AMOLED
+1.8. The four engraved sides provide 5, 10, 30, and 60 minute presets. It
+holds the complete device in its factory black enclosure (45.2 × 37.6 mm).
+The device drops into a snug pocket in the body. A front lid with the
+screen opening clicks on with four hidden cantilever tongues, two per side
+wall, and its 8 mm deep frame both squares the lid and clamps the factory
+case so nothing rattles. Each tongue carries a barb ramped on both faces:
+the rear ramp snaps in, the front ramp releases under a straight pull, so
+matching scallops under the seam on the 5 and 30 faces are enough to take
+the lid off by hand. Blind internal reliefs keep the frame clear of the PWR
+and BOOT buttons. A chamfered rectangular USB-C port on the 10-minute face
+is aligned with the connector and accepts straight and bulky cable plugs.
+The cavity behind the device is a light honeycomb so it prints without
+supports.
+
+**Main parameters:**
+
+- Case size: 52 × 52 × 46 mm
+- Wall thickness: 1.8 mm
+- Corner radius: 3.2 mm
+- Device pocket: 37.9 × 45.5 × 15.5 mm
+- Screen window: 30.1 × 36.3 mm
+- USB-C port: 15 × 10 mm bore, chamfered to 18.4 × 13.4 mm
+- Engraving size/depth: 22 / 0.55 mm
+- Rear honeycomb: 11 mm pitch, 0.8 mm walls
+- Lid frame: 8 mm deep, 0.25 mm clearance per side
+- Lid retention: four 12 mm tongues, 0.45 mm engagement each
+- Grip scallops: 16 × 2.2 mm, 1 mm deep, on the 5 and 30 faces
+
+**Files:**
+
+- [pomodoro_timer_enclosure.py](pomodoro_timer_enclosure/pomodoro_timer_enclosure.py) - Parametric source
+- [body.stl](pomodoro_timer_enclosure/body.stl) and [lid.stl](pomodoro_timer_enclosure/lid.stl)
+- STEP files are available beside each STL
+
+**References:**
+
+- [Official Waveshare board STEP model](https://files.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.8/ESP32-S3-Touch-AMOLED-1.8-3D.zip)
+- [Waveshare hardware resources](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.8/Resources-And-Documents)
+- [USB-C charging base on Printables](https://www.printables.com/model/1355637-waveshare-esp32-s3-18inch-amoled-touch-display-3d)
 
 ### License
 
