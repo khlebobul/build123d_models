@@ -54,20 +54,32 @@ SLIT_W = 0.8
 # USB-C on the short factory-case edge (+X, the "10" face).
 # Rectangular clearance for straight and bulky reversible cable overmolds,
 # centered on the connector position in the official board STEP. The chamfered
-# mouth reads as a finished port and guides the plug in.
-USB_W = 15.0
+# mouth reads as a finished port and guides the plug in. Its width leaves room
+# for the two push-buttons that share this face.
+USB_W = 14.0
 USB_H = 10.0
 USB_Z = 8.2
 USB_CORNER = 0.8
-USB_CHAMFER = 1.5
+USB_CHAMFER = 0.6
 
-# Blind reliefs in the lid frame prevent the factory buttons from being
-# pressed by the enclosure without exposing them on the outside.
-BUTTON_RELIEF_W = 9.0
-BUTTON_RELIEF_H = 4.0
-BUTTON_RELIEF_DEPTH = 2.0
-BUTTON_RELIEF_Y = 10.5
-BUTTON_RELIEF_Z = 7.5
+# The factory PWR and BOOT keys sit on the USB face, 10.5 mm either side of the
+# connector (from the official board STEP). Printed push-buttons reach them
+# through the wall, so the device can be switched off without opening the case.
+# Each button is a stem in a bore with an inner flange that stops it falling
+# out; the device key itself springs it back.
+BUTTON_Y = 10.5
+BUTTON_Z = 7.2
+BUTTON_BORE_W = 4.4
+BUTTON_BORE_H = 5.0
+BUTTON_BORE_R = 1.0
+BUTTON_STEM_W = 4.0
+BUTTON_STEM_H = 4.6
+BUTTON_STEM_R = 0.8
+BUTTON_FLANGE_W = 6.6
+BUTTON_FLANGE_H = 5.0
+BUTTON_FLANGE_T = 1.0
+BUTTON_SINK = 0.3
+BUTTON_GAP = 0.5
 
 # Matching scallops under the seam on the 5 and 30 faces. They expose the back
 # edge of the lid so it can be pinched off with two fingernails.
@@ -76,6 +88,9 @@ GRIP_H = 2.2
 GRIP_DEPTH = 1.0
 GRIP_Z = LID_T + GRIP_H / 2
 
+# Side texts, in order: +Y, +X (USB face), -Y, -X. Change these four strings
+# to engrave whatever you want on a labeled variant. Empty strings skip a face.
+LABELS = ("5", "10", "30", "60")
 LABEL_DEPTH = 0.55
 LABEL_SIZE = 22.0
 LABEL_Z = 31.0
@@ -103,10 +118,20 @@ def rounded_prism(width: float, height: float, depth: float, radius: float, z: f
     return part.part
 
 
-def _cut_rounded_slot(plane: Plane, width: float, height: float, depth: float):
+def _cut_rounded_slot(
+    plane: Plane,
+    width: float,
+    height: float,
+    depth: float,
+    radius: float | None = None,
+):
+    if radius is None:
+        radius = min(width, height) / 2
     with BuildPart() as cutter:
         with BuildSketch(plane):
-            RectangleRounded(width, height, min(width, height) / 2 - 0.05)
+            RectangleRounded(
+                width, height, min(radius, width / 2 - 0.05, height / 2 - 0.05)
+            )
         extrude(amount=depth)
     return cutter.part
 
@@ -176,23 +201,34 @@ def make_cavity_infill():
     return infill.part
 
 
-def _add_labels(part):
-    labels = (
-        ("5", Plane(origin=(0, CASE_SIZE / 2, LABEL_Z), x_dir=(-1, 0, 0), z_dir=(0, 1, 0))),
-        ("10", Plane(origin=(CASE_SIZE / 2, 0, LABEL_Z), x_dir=(0, 1, 0), z_dir=(1, 0, 0))),
-        ("30", Plane(origin=(0, -CASE_SIZE / 2, LABEL_Z), x_dir=(1, 0, 0), z_dir=(0, -1, 0))),
-        ("60", Plane(origin=(-CASE_SIZE / 2, 0, LABEL_Z), x_dir=(0, -1, 0), z_dir=(-1, 0, 0))),
+def _label_planes():
+    return (
+        Plane(origin=(0, CASE_SIZE / 2, LABEL_Z), x_dir=(-1, 0, 0), z_dir=(0, 1, 0)),
+        Plane(origin=(CASE_SIZE / 2, 0, LABEL_Z), x_dir=(0, 1, 0), z_dir=(1, 0, 0)),
+        Plane(origin=(0, -CASE_SIZE / 2, LABEL_Z), x_dir=(1, 0, 0), z_dir=(0, -1, 0)),
+        Plane(origin=(-CASE_SIZE / 2, 0, LABEL_Z), x_dir=(0, -1, 0), z_dir=(-1, 0, 0)),
     )
-    for label, plane in labels:
+
+
+def _add_labels(part, labels=LABELS):
+    if len(labels) != 4:
+        raise ValueError("LABELS must have exactly four strings: +Y, +X, -Y, -X")
+    for label, plane in zip(labels, _label_planes()):
+        if not str(label).strip():
+            continue
         with BuildPart() as engraving:
             with BuildSketch(plane):
-                Text(label, font_size=LABEL_SIZE, font_style=FontStyle.BOLD)
+                Text(str(label), font_size=LABEL_SIZE, font_style=FontStyle.BOLD)
             extrude(amount=-LABEL_DEPTH)
         part -= engraving.part
     return part
 
 
-def make_body():
+def _lid_channel_width():
+    return 2 * (BUTTON_Y + BUTTON_FLANGE_W / 2 + 0.4)
+
+
+def make_body(with_buttons: bool = True, with_labels: bool = True, labels=LABELS):
     """Cube open at the front. The device drops in; the lid with the window closes it."""
     body = rounded_prism(
         CASE_SIZE, CASE_SIZE, CASE_DEPTH - LID_T, CORNER_RADIUS, LID_T
@@ -226,6 +262,17 @@ def make_body():
 
     body -= _usb_port_cutter()
 
+    if with_buttons:
+        for y in (-BUTTON_Y, BUTTON_Y):
+            bore_plane = Plane(
+                origin=(CASE_SIZE / 2 + 0.2, y, BUTTON_Z),
+                x_dir=(0, 1, 0),
+                z_dir=(1, 0, 0),
+            )
+            body -= _cut_rounded_slot(
+                bore_plane, BUTTON_BORE_W, BUTTON_BORE_H, -(WALL + 0.4), BUTTON_BORE_R
+            )
+
     groove_d = LATCH_HOOK + 0.2
     groove_h = LATCH_H + 0.5
     for y in (-1, 1):
@@ -248,7 +295,9 @@ def make_body():
         )
         body -= _cut_rounded_slot(grip_plane, GRIP_W, GRIP_H, -(GRIP_DEPTH + 0.2))
 
-    return _add_labels(body)
+    if with_labels:
+        body = _add_labels(body, labels)
+    return body
 
 
 def make_lid():
@@ -266,10 +315,14 @@ def make_lid():
     )
     lid += frame
 
-    # Clear the USB path through the inner frame. The front face stays intact.
+    # One open channel on the USB side, running the full depth of the frame.
+    # The cable, both factory keys and the push-button flanges all pass through
+    # it, so the device is loaded into the body first and the lid just drops on
+    # without lining anything up. Two corner blocks keep centering the device.
+    channel_w = _lid_channel_width()
     lid -= Box(
         PLUG_SIZE / 2 - FRAME_INNER_W / 2 + 1.0,
-        USB_W,
+        channel_w,
         PLUG_DEPTH + 0.4,
     ).move(
         Location(
@@ -280,20 +333,6 @@ def make_lid():
             )
         )
     )
-
-    # Two rounded, blind pockets clear PWR/BOOT button protrusions.
-    for y in (-BUTTON_RELIEF_Y, BUTTON_RELIEF_Y):
-        relief_plane = Plane(
-            origin=(FRAME_INNER_W / 2 - 0.1, y, BUTTON_RELIEF_Z),
-            x_dir=(0, 1, 0),
-            z_dir=(1, 0, 0),
-        )
-        lid -= _cut_rounded_slot(
-            relief_plane,
-            BUTTON_RELIEF_W,
-            BUTTON_RELIEF_H,
-            BUTTON_RELIEF_DEPTH,
-        )
 
     # Slit the flexible side walls into free tongues, then add their barbs.
     slit_len = PLUG_DEPTH - 1.4 + 0.4
@@ -318,7 +357,30 @@ def make_lid():
     return lid
 
 
-def validate(body, lid):
+def button_nose_length():
+    return INNER / 2 - BUTTON_FLANGE_T - (DEVICE_W / 2 + BUTTON_GAP)
+
+
+def make_button():
+    """Printed push-button, two needed, reaching a factory key through the wall.
+
+    Loaded from inside the body before the device goes in. The flange stops it
+    from falling out through the bore, the device key springs it back, and the
+    cap stays below the face so the cube still sits flat on the USB side.
+    """
+    nose = button_nose_length()
+    stem = WALL - BUTTON_SINK
+    button = rounded_prism(BUTTON_STEM_W, BUTTON_STEM_H, nose, BUTTON_STEM_R, 0)
+    button += rounded_prism(
+        BUTTON_FLANGE_W, BUTTON_FLANGE_H, BUTTON_FLANGE_T, BUTTON_BORE_R, nose
+    )
+    button += rounded_prism(
+        BUTTON_STEM_W, BUTTON_STEM_H, stem, BUTTON_STEM_R, nose + BUTTON_FLANGE_T
+    )
+    return button
+
+
+def validate(body, lid, button=None, with_buttons: bool = True, with_labels: bool = True, labels=LABELS):
     assert len(body.solids()) == 1 and len(lid.solids()) == 1
     assert body.volume > 6_000 and lid.volume > 1_500
     assert abs(body.bounding_box().size.X - CASE_SIZE) < 0.01
@@ -335,21 +397,67 @@ def validate(body, lid):
     assert body.intersect(device).volume < 0.01
     assert body.intersect(lid).volume < 5.0
 
-    usb_top = USB_Z + USB_H / 2
-    with BuildSketch() as label_sk:
-        Text("10", font_size=LABEL_SIZE, font_style=FontStyle.BOLD)
-    label_h = label_sk.sketch.bounding_box().size.Y
-    assert LABEL_Z - label_h / 2 > usb_top + 1.5
+    if with_labels:
+        usb_label = str(labels[1]).strip()
+        if usb_label:
+            usb_top = USB_Z + USB_H / 2
+            with BuildSketch() as label_sk:
+                Text(usb_label, font_size=LABEL_SIZE, font_style=FontStyle.BOLD)
+            label_h = label_sk.sketch.bounding_box().size.Y
+            assert LABEL_Z - label_h / 2 > usb_top + 1.5
+
+    if with_buttons:
+        assert button is not None and len(button.solids()) == 1
+        # The stem slides in the bore, the flange cannot follow it out.
+        assert BUTTON_STEM_W < BUTTON_BORE_W and BUTTON_STEM_H < BUTTON_BORE_H
+        assert BUTTON_FLANGE_W > BUTTON_BORE_W + 1.0
+        # The bore clears the chamfered port mouth.
+        port_half = USB_W / 2 + USB_CHAMFER + 0.2
+        assert BUTTON_Y - BUTTON_BORE_W / 2 - port_half > 0.3
+        # The flange stays clear of the pocket sleeve behind the lid frame.
+        assert BUTTON_Z + BUTTON_FLANGE_H / 2 < LID_T + PLUG_DEPTH - 0.2
+        # At rest the nose hovers off the device instead of holding a key down.
+        assert button.bounding_box().size.Z == button_nose_length() + BUTTON_FLANGE_T + (
+            WALL - BUTTON_SINK
+        )
+        assert BUTTON_GAP >= 0.4
+        # The lid channel is wide enough for both flanges to travel in.
+        assert _lid_channel_width() < PLUG_SIZE - 8.0
+
+
+VARIANTS = (
+    ("buttons/labeled", True, True),
+    ("buttons/unlabeled", True, False),
+    ("no_buttons/labeled", False, True),
+    ("no_buttons/unlabeled", False, False),
+)
+
+
+def export_variant(folder: str, with_buttons: bool, with_labels: bool, labels=LABELS):
+    output = OUTPUT_DIR / folder
+    output.mkdir(parents=True, exist_ok=True)
+    body = make_body(with_buttons=with_buttons, with_labels=with_labels, labels=labels)
+    lid = make_lid()
+    button = make_button() if with_buttons else None
+    validate(
+        body,
+        lid,
+        button,
+        with_buttons=with_buttons,
+        with_labels=with_labels,
+        labels=labels,
+    )
+    export_step(body, output / "body.step")
+    export_stl(body, output / "body.stl")
+    export_step(lid, output / "lid.step")
+    export_stl(lid, output / "lid.stl")
+    if button is not None:
+        export_step(button, output / "button.step")
+        export_stl(button, output / "button.stl")
+    print(f"Exported {folder}")
 
 
 if __name__ == "__main__":
-    body = make_body()
-    lid = make_lid()
-    validate(body, lid)
-
-    export_step(body, OUTPUT_DIR / "body.step")
-    export_stl(body, OUTPUT_DIR / "body.stl")
-    export_step(lid, OUTPUT_DIR / "lid.step")
-    export_stl(lid, OUTPUT_DIR / "lid.stl")
-
-    print("Exported front-lid Pomodoro enclosure")
+    for folder, with_buttons, with_labels in VARIANTS:
+        export_variant(folder, with_buttons, with_labels, LABELS)
+    print("Exported all Pomodoro enclosure variants")
