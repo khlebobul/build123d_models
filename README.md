@@ -39,7 +39,7 @@ from build123d import *
 
 ### Models
 
-#### Ring Clamp
+### Ring Clamp
 
 <img src="ring_clamp/ring_clamp.png" alt="Ring Clamp" width="50%">
 
@@ -61,7 +61,7 @@ You can modify the following parameters in `clamp.py` to customize the ring clam
 - [clamp.py](ring_clamp/clamp.py) - Source code
 - [ring_clamp.stl](ring_clamp/ring_clamp.stl) - 3D model file
 
-#### Closet Rod Adapter
+### Closet Rod Adapter
 
 | 3D Model | Real |
 |:---:|:---:|
@@ -88,7 +88,7 @@ You can modify the following parameters in `closet_rod_adapter.py` to customize 
 - [Model on Makerworld](https://makerworld.com/en/models/2172973-closet-rod-adapter-customisable-with-build123d#profileId-2357070)
 - [Model on Printables](https://www.printables.com/model/1533332-closet-rod-adapter-customisable-with-build123d)
 
-#### Mug Dust Cover
+### Mug Dust Cover
 
 | 3D Model | Real |
 |:---:|:---:|
@@ -112,7 +112,7 @@ keeping the top closed against falling dust.
 - [Model on Makerworld](https://makerworld.com/en/models/3019858-mug-dust-cover#profileId-3392740)
 - [Model on Printables](https://www.printables.com/model/1774129-mug-dust-cover)
 
-#### Hockey Player Holder
+### Hockey Player Holder
 
 | 3D Model | Real |
 |:---:|:---:|
@@ -136,7 +136,7 @@ Holder for tabletop hockey game player figures. Tubular body with a wider collar
 - [Model on Makerworld](https://makerworld.com/en/models/3094867-hockey-player-holder#profileId-3487696)
 - [Model on Printables](https://www.printables.com/model/1790789-hockey-player-holder)
 
-#### Pomodoro Timer Enclosure
+### Pomodoro Timer Enclosure
 
 Flip-to-start Pomodoro enclosure for the Waveshare ESP32-S3 Touch AMOLED
 1.8. It holds the complete device in its factory black enclosure
@@ -146,6 +146,10 @@ and an 8 mm deep frame. Matching scallops under the seam on two faces are
 enough to take the lid off by hand. A chamfered rectangular USB-C port sits
 on the +X face. The cavity behind the device is a light honeycomb so it
 prints without supports.
+
+| With Buttons | Without Buttons |
+|:---:|:---:|
+| <img src="pomodoro_timer_enclosure/buttons.png" alt="Pomodoro Timer Enclosure with buttons" width="100%"> | <img src="pomodoro_timer_enclosure/no_buttons.png" alt="Pomodoro Timer Enclosure without buttons" width="100%"> |
 
 Four ready-to-print variants live in subfolders. Each can be with or without
 printed PWR/BOOT push-buttons, and with or without side engraving:
@@ -189,6 +193,8 @@ keys elsewhere.
 - [no_buttons/labeled](pomodoro_timer_enclosure/no_buttons/labeled), [no_buttons/unlabeled](pomodoro_timer_enclosure/no_buttons/unlabeled)
 - Each folder has `body` and the same wide-channel `lid`; button variants also have `button` (print 2)
 - STEP files are available beside each STL
+- [Model on Makerworld](TODO)
+- [Model on Printables](TODO)
 
 **References:**
 
