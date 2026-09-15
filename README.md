@@ -63,6 +63,12 @@ You can modify the following parameters in `clamp.py` to customize the ring clam
 
 ### Closet Rod Adapter
 
+<p align="center">
+  <a href="https://makerworld.com/en/models/2172973-closet-rod-adapter-customisable-with-build123d#profileId-2357070"><img src="assets/maker_world_logo.png" height="38"></a>
+  &nbsp;&nbsp;
+  <a href="https://www.printables.com/model/1533332-closet-rod-adapter-customisable-with-build123d"><img src="assets/printables_logo.png" height="38"></a>
+</p>
+
 | 3D Model | Real |
 |:---:|:---:|
 | <img src="closet_rod_adapter/closet_rod_adapter.png" alt="Closet Rod Adapter" width="100%"> | <img src="closet_rod_adapter/closet_rod_adapter_real.png" alt="Closet Rod Adapter real" width="100%"> |
@@ -85,10 +91,14 @@ You can modify the following parameters in `closet_rod_adapter.py` to customize 
 **Files:**
 - [closet_rod_adapter.py](closet_rod_adapter/closet_rod_adapter.py) - Source code
 - [closet_rod_adapter.stl](closet_rod_adapter/closet_rod_adapter.stl) - 3D model file
-- [Model on Makerworld](https://makerworld.com/en/models/2172973-closet-rod-adapter-customisable-with-build123d#profileId-2357070)
-- [Model on Printables](https://www.printables.com/model/1533332-closet-rod-adapter-customisable-with-build123d)
 
 ### Mug Dust Cover
+
+<p align="center">
+  <a href="https://makerworld.com/en/models/3019858-mug-dust-cover#profileId-3392740"><img src="assets/maker_world_logo.png" height="38"></a>
+  &nbsp;&nbsp;
+  <a href="https://www.printables.com/model/1774129-mug-dust-cover"><img src="assets/printables_logo.png" height="38"></a>
+</p>
 
 | 3D Model | Real |
 |:---:|:---:|
@@ -109,10 +119,14 @@ keeping the top closed against falling dust.
 **Files:**
 - [mug_dust_cover.py](mug_dust_cover/mug_dust_cover.py) - Source code
 - [mug_dust_cover.stl](mug_dust_cover/mug_dust_cover.stl) - 3D model file
-- [Model on Makerworld](https://makerworld.com/en/models/3019858-mug-dust-cover#profileId-3392740)
-- [Model on Printables](https://www.printables.com/model/1774129-mug-dust-cover)
 
 ### Hockey Player Holder
+
+<p align="center">
+  <a href="https://makerworld.com/en/models/3094867-hockey-player-holder#profileId-3487696"><img src="assets/maker_world_logo.png" height="38"></a>
+  &nbsp;&nbsp;
+  <a href="https://www.printables.com/model/1790789-hockey-player-holder"><img src="assets/printables_logo.png" height="38"></a>
+</p>
 
 | 3D Model | Real |
 |:---:|:---:|
@@ -133,19 +147,16 @@ Holder for tabletop hockey game player figures. Tubular body with a wider collar
 **Files:**
 - [hockey_player_holder.py](hockey_player_holder/hockey_player_holder.py) - Source code
 - [hockey_player_holder.stl](hockey_player_holder/hockey_player_holder.stl) - 3D model file
-- [Model on Makerworld](https://makerworld.com/en/models/3094867-hockey-player-holder#profileId-3487696)
-- [Model on Printables](https://www.printables.com/model/1790789-hockey-player-holder)
 
-### Pomodoro Timer Enclosure
+### Pomodoro Timer Enclosure for [esp_pomodoro_timer](https://github.com/khlebobul/esp_pomodoro_timer)
 
-Flip-to-start Pomodoro enclosure for the Waveshare ESP32-S3 Touch AMOLED
-1.8. It holds the complete device in its factory black enclosure
-(45.2 × 37.6 mm). The device drops into a snug pocket in the body. A front
-lid with the screen opening clicks on with four hidden cantilever tongues
-and an 8 mm deep frame. Matching scallops under the seam on two faces are
-enough to take the lid off by hand. A chamfered rectangular USB-C port sits
-on the +X face. The cavity behind the device is a light honeycomb so it
-prints without supports.
+<p align="center">
+  <a href="https://makerworld.com/en/models/3306634-pomodoro-timer-enclosure-for-esp32-s3-1-8-inch#profileId-3753456"><img src="assets/maker_world_logo.png" height="38"></a>
+  &nbsp;&nbsp;
+  <a href="https://www.printables.com/model/1842276-pomodoro-timer-enclosure-for-esp32-s3-touch-amoled"><img src="assets/printables_logo.png" height="38"></a>
+</p>
+
+Flip-to-start Pomodoro enclosure for the Waveshare ESP32-S3 Touch AMOLED 1.8. It holds the complete device in its factory black enclosure (45.2 × 37.6 mm). The device drops into a snug pocket in the body. A front lid with the screen opening clicks on with four hidden cantilever tongues and an 8 mm deep frame. Matching scallops under the seam on two faces are enough to take the lid off by hand. A chamfered rectangular USB-C port sits on the +X face. The cavity behind the device is a light honeycomb so it prints without supports.
 
 | With Buttons | Without Buttons |
 |:---:|:---:|
@@ -193,8 +204,6 @@ keys elsewhere.
 - [no_buttons/labeled](pomodoro_timer_enclosure/no_buttons/labeled), [no_buttons/unlabeled](pomodoro_timer_enclosure/no_buttons/unlabeled)
 - Each folder has `body` and the same wide-channel `lid`; button variants also have `button` (print 2)
 - STEP files are available beside each STL
-- [Model on Makerworld](TODO)
-- [Model on Printables](TODO)
 
 **References:**
 
