@@ -208,8 +208,23 @@ keys elsewhere.
 **References:**
 
 - [Official Waveshare board STEP model](https://files.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.8/ESP32-S3-Touch-AMOLED-1.8-3D.zip)
+
 - [Waveshare hardware resources](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.8/Resources-And-Documents)
 - [USB-C charging base on Printables](https://www.printables.com/model/1355637-waveshare-esp32-s3-18inch-amoled-touch-display-3d)
+
+### ESP32 Desktop Dock
+
+One-piece landscape desk stand for the factory Waveshare case. The USB-C edge
+faces down into a 30 mm open channel that continues through the base to the
+rear, leaving both factory buttons, bulky plugs and the cable bend clear.
+The same front-open channel allows PWR and BOOT to be pressed upward from below.
+
+- Base: 76 × 62 mm
+- Display tilt: 15°
+- Minimum open space below the USB-C edge: 15 mm
+- Print flat without supports
+
+**Files:** [esp32_desktop_dock](esp32_desktop_dock)
 
 ### License
 
