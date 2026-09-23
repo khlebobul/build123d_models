@@ -13,6 +13,7 @@ A collection of 3D models created using [build123d](https://github.com/build123d
 - [Mug Dust Cover](#mug-dust-cover)
 - [Hockey Player Holder](#hockey-player-holder)
 - [Pomodoro Timer Enclosure](#pomodoro-timer-enclosure)
+- [Table Dock for ESP32-S3 Touch AMOLED 1.8](#table-dock-for-esp32-s3-touch-amoled-18)
 
 ### Requirements
 
@@ -208,8 +209,25 @@ keys elsewhere.
 **References:**
 
 - [Official Waveshare board STEP model](https://files.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.8/ESP32-S3-Touch-AMOLED-1.8-3D.zip)
+
 - [Waveshare hardware resources](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.8/Resources-And-Documents)
-- [USB-C charging base on Printables](https://www.printables.com/model/1355637-waveshare-esp32-s3-18inch-amoled-touch-display-3d)
+### Table Dock for ESP32-S3 Touch AMOLED 1.8
+
+Based on [vumaq's original Printables model](https://www.printables.com/model/1355637-waveshare-esp32-s3-18inch-amoled-touch-display-3d/files).
+The board fits the original stand, but the opening below it is too small for
+my USB-C plug and access to the buttons. This version extends the lower body
+15 mm and makes one 34 mm wide opening under the board for both buttons and
+the cable. It connects to the 16 mm rear cable channel; the side seating
+surfaces remain in place.
+
+- Size: 50 × 50 × 55 mm
+- To regenerate: download `ticker32-cfc1.stl` from the original model, place it
+  next to `esp32_table_dock.py`, install `numpy` and `manifold3d`, then run the script.
+
+**Files:**
+
+- [esp32_table_dock.stl](esp32_table_dock/esp32_table_dock.stl) - Print model
+- [esp32_table_dock.py](esp32_table_dock/esp32_table_dock.py) - Source
 
 ### License
 
