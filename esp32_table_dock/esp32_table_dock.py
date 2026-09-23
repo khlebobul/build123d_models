@@ -15,9 +15,12 @@ SOURCE = HERE / "ticker32-cfc1.stl"
 OUTPUT = HERE / "esp32_table_dock.stl"
 LIFT = 15.0
 STRETCH_BELOW_Z = 8.0
-CABLE_WIDTH = 24.0
-CHANNEL_START_Y = -1.0
+CABLE_WIDTH = 16.0
+CHANNEL_START_Y = 8.0
 CHANNEL_TOP_Z = 28.0
+ACCESS_WIDTH = 34.0
+ACCESS_END_Y = 24.0
+ACCESS_TOP_Z = 34.0
 
 
 def read_stl(path):
@@ -59,10 +62,14 @@ if __name__ == "__main__":
     channel = mf.Manifold.cube((CABLE_WIDTH, 51 - CHANNEL_START_Y, CHANNEL_TOP_Z)).translate(
         ((50 - CABLE_WIDTH) / 2, CHANNEL_START_Y, 0)
     )
-    result = body - channel
+    access = mf.Manifold.cube((ACCESS_WIDTH, ACCESS_END_Y - CHANNEL_START_Y, ACCESS_TOP_Z)).translate(
+        ((50 - ACCESS_WIDTH) / 2, CHANNEL_START_Y, 0)
+    )
+    opening = channel + access
+    result = body - opening
     assert result.status() == mf.Error.NoError and len(result.decompose()) == 1
     assert abs(result.bounding_box()[5] - (40 + LIFT)) < 0.01
-    assert (result ^ channel).volume() < 0.01
+    assert len(opening.decompose()) == 1 and (result ^ opening).volume() < 0.01
     write_stl(result, OUTPUT)
     assert read_stl(OUTPUT).status() == mf.Error.NoError
-    print(f"Saved {OUTPUT}: {40 + LIFT:g} mm tall, {CABLE_WIDTH:g} mm cable channel")
+    print(f"Saved {OUTPUT}: {ACCESS_WIDTH:g} mm opening for buttons and cable")
